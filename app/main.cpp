@@ -1,6 +1,7 @@
 #include <iostream>
 #include <array>
 #include <ostream>
+#include <utility>
 #include <vector>
 
 #include "Example.h"
@@ -42,26 +43,6 @@ public:
         return *this;
     }
 
-    [[nodiscard]] int get_an() const
-    {
-        return m_an;
-    }
-
-    void set_an(int m_an)
-    {
-        this->m_an = m_an;
-    }
-
-    [[nodiscard]] int get_grupa() const
-    {
-        return m_grupa;
-    }
-
-    void set_grupa(int m_grupa)
-    {
-        this->m_grupa = m_grupa;
-    }
-
     friend std::ostream& operator<<(std::ostream& os, const Student& obj)
     {
         return os
@@ -75,19 +56,76 @@ class Facultate
 {
     std::string m_nume;
     std::vector<Student> m_studenti;
+
+public:
+    Facultate(const std::string& m_nume, const std::vector<Student>& m_studenti)
+        : m_nume(m_nume),
+          m_studenti(m_studenti)
+    {
+    }
 };
 
 class Oras
 {
     Facultate m_facultate;
+    int nr_locuitori;
+
+public:
+    Oras(const Facultate& m_facultate, int nr_locuitori)
+        : m_facultate(m_facultate),
+          nr_locuitori(nr_locuitori)
+    {
+    }
 };
+
+class AnalizaDate
+{
+    std::string m_nume;
+    int nr;
+
+public:
+    AnalizaDate(std::string m_nume, int nr)
+        : m_nume(std::move(m_nume)),
+          nr(nr)
+    {
+    }
+
+    virtual float rezultat(Facultate f)
+    {
+        // multe calcule complicate
+        return 5;
+    }
+};
+
+class AnalizaTest : public AnalizaDate
+{
+    float precizie;
+
+public:
+    AnalizaTest(const std::string& m_nume, int nr, float precizie)
+        : AnalizaDate(m_nume, nr),
+          precizie(precizie)
+    {
+    }
+
+    float rezultat(Facultate f) override
+    {
+        // calculăm cu o formulă aproximativă
+        return 7;
+    }
+};
+
 
 int main() {
     Student st1{2, 264, "Icsulescu"};
     Student st2{2, 264, "Icsuleanu"};
     std::cout << st1 << st2;
     operator<<(std::cout, "hello\n");
-    return 0;
+
+    Facultate fac1{"FMI", {st1, st2}};
+    AnalizaTest test{"a1", 2, 3};
+    std::cout << test.rezultat(fac1);
+
     std::cout << "Hello, world!\n";
     Example e1;
     e1.add(3);
