@@ -1,8 +1,93 @@
 #include <iostream>
 #include <array>
+#include <ostream>
+#include <vector>
+
 #include "Example.h"
 
+class Student
+{
+    int m_an;
+    int m_grupa;
+    std::string m_nume;
+
+public:
+    Student(int an, int grupa, const std::string& nume)
+        : m_an(an),
+          m_grupa(grupa),
+          m_nume(nume)
+    {
+        std::cout << "constr student " << nume << "\n";
+    }
+
+    ~Student()
+    {
+        std::cout << "destr student " << m_nume << "\n";
+    }
+
+    Student(const Student& other)
+        : m_an(other.m_an),
+          m_grupa(other.m_grupa),
+          m_nume(other.m_nume)
+    {
+    }
+
+    Student& operator=(const Student& other)
+    {
+        if (this == &other)
+            return *this;
+        m_an = other.m_an;
+        m_grupa = other.m_grupa;
+        m_nume = other.m_nume;
+        return *this;
+    }
+
+    [[nodiscard]] int get_an() const
+    {
+        return m_an;
+    }
+
+    void set_an(int m_an)
+    {
+        this->m_an = m_an;
+    }
+
+    [[nodiscard]] int get_grupa() const
+    {
+        return m_grupa;
+    }
+
+    void set_grupa(int m_grupa)
+    {
+        this->m_grupa = m_grupa;
+    }
+
+    friend std::ostream& operator<<(std::ostream& os, const Student& obj)
+    {
+        return os
+            << "m_an: " << obj.m_an
+            << " m_grupa: " << obj.m_grupa
+            << " m_nume: " << obj.m_nume;
+    }
+};
+
+class Facultate
+{
+    std::string m_nume;
+    std::vector<Student> m_studenti;
+};
+
+class Oras
+{
+    Facultate m_facultate;
+};
+
 int main() {
+    Student st1{2, 264, "Icsulescu"};
+    Student st2{2, 264, "Icsuleanu"};
+    std::cout << st1 << st2;
+    operator<<(std::cout, "hello\n");
+    return 0;
     std::cout << "Hello, world!\n";
     Example e1;
     e1.add(3);
