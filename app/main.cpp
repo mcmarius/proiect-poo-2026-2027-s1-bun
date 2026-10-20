@@ -1,5 +1,6 @@
 #include <iostream>
 #include <array>
+#include <cmath>
 #include <ostream>
 #include <utility>
 #include <vector>
@@ -63,6 +64,8 @@ public:
           m_studenti(m_studenti)
     {
     }
+
+    int scor() { return m_studenti.size(); }
 };
 
 class Oras
@@ -75,6 +78,7 @@ public:
         : m_facultate(m_facultate),
           nr_locuitori(nr_locuitori)
     {
+        std::cout << "constr oras " << nr_locuitori << "\n";
     }
 };
 
@@ -90,10 +94,10 @@ public:
     {
     }
 
-    virtual float rezultat(Facultate f)
+    virtual double rezultat(Facultate f)
     {
         // multe calcule complicate
-        return 5;
+        return 5 * f.scor() + nr;
     }
 };
 
@@ -108,10 +112,10 @@ public:
     {
     }
 
-    float rezultat(Facultate f) override
+    double rezultat([[maybe_unused]] Facultate f) override
     {
         // calculăm cu o formulă aproximativă
-        return 7;
+        return std::round(7);
     }
 };
 
