@@ -80,6 +80,11 @@ public:
     {
         std::cout << "constr oras " << nr_locuitori << "\n";
     }
+
+    void f()
+    {
+        std::cout << nr_locuitori << "\n";
+    }
 };
 
 class AnalizaDate
@@ -115,7 +120,7 @@ public:
     double rezultat([[maybe_unused]] Facultate f) override
     {
         // calculăm cu o formulă aproximativă
-        return std::round(7);
+        return std::pow(7, precizie);
     }
 };
 
@@ -127,6 +132,8 @@ int main() {
     operator<<(std::cout, "hello\n");
 
     Facultate fac1{"FMI", {st1, st2}};
+    Oras oras{fac1, 3};
+    oras.f();
     AnalizaTest test{"a1", 2, 3};
     std::cout << test.rezultat(fac1);
 
