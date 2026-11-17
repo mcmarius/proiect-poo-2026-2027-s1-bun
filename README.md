@@ -207,3 +207,7 @@ The [template repository](https://github.com/mcmarius/oop-template) itself is li
 ## Resurse
 
 - adăugați trimiteri **detaliate** către resursele externe care v-au ajutat sau pe care le-ați folosit
+
+### Probe
+
+Un commit suplimentar (doar documentație) pentru un tag nou: verifică arhivarea unui commit re-notat.
